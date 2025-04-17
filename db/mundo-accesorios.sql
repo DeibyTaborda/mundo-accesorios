@@ -2,24 +2,42 @@ CREATE DATABASE mundo_accesorios;
 
 USE mundo_accesorios;
 
+CREATE TABLE rol(
+    id_rol INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(20) NOT NULL,
+    descripcion VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE status(
+    id_status INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(20) NOT NULL,
+    descripcion VARCHAR(100) NOT NULL
+);
+
 CREATE TABLE usuario(
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(60) NOT NULL,
     telefono VARCHAR(10) NOT NULL,
     correo VARCHAR(60) NOT NULL,
-    rol ENUM('cliente', 'admin', 'super_admin') NOT NULL
+    contrasena VARCHAR(60) NOT NULL,
+    rol INT NOT NULL,
+    status INT NOT NULL,
+    fecha_registro DATETIME NOT NULL,
+    FOREIGN KEY (rol) REFERENCES rol(id_rol),
+    FOREIGN KEY (status) REFERENCES status(id_status)
 );
 
-CREATE TABLE factura(
-    id_factura INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE dispositivo_reparacion(
+    id_dispositivo INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
-    fecha_registro DATETIME NOT NULL,
-    marca_disp VARCHAR(30) NOT NULL,
-    modelo_disp VARCHAR(30) NULL,
+    marca VARCHAR(30) NOT NULL,
+    modelo VARCHAR(30) NOT NULL,
     imei VARCHAR(15) NULL,
-    clave VARCHAR(40) NULL,
-    observaciones TEXT NULL,
-    tel VARCHAR(10) NULL,
-    firma VARCHAR(40) NULL,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_cliente)
+    clave VARCHAR(15) NULL,
+    problema_descripcion TEXT NOT NULL,
+    fecha_ingreso DATETIME NOT NULL,
+    fecha_entrega DATETIME NULL,
+    status INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_cliente),
+    FOREIGN KEY (status) REFERENCES status(id_status)
 );
