@@ -1,0 +1,4 @@
+SetEnv USERNAME user
+SetEnv PASSWORD password
+SetEnv HOSTNAME localhost
+SetEnv DBNAME db
