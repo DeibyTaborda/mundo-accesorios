@@ -15,21 +15,22 @@ CREATE TABLE status(
 );
 
 CREATE TABLE usuario(
-    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(60) NOT NULL,
     telefono VARCHAR(10) NOT NULL,
     correo VARCHAR(60) NOT NULL,
     contrasena VARCHAR(60) NOT NULL,
-    rol INT NOT NULL,
-    status INT NOT NULL,
+    rolID INT NOT NULL,
+    statusID INT NOT NULL,
     fecha_registro DATETIME NOT NULL,
-    FOREIGN KEY (rol) REFERENCES rol(id_rol),
-    FOREIGN KEY (status) REFERENCES status(id_status)
+    
+    FOREIGN KEY (rolID) REFERENCES rol(id_rol),
+    FOREIGN KEY (statusID) REFERENCES status(id_status)
 );
 
 CREATE TABLE dispositivo_reparacion(
     id_dispositivo INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
+    usuarioID INT NOT NULL,
     marca VARCHAR(30) NOT NULL,
     modelo VARCHAR(30) NOT NULL,
     imei VARCHAR(15) NULL,
@@ -37,7 +38,7 @@ CREATE TABLE dispositivo_reparacion(
     problema_descripcion TEXT NOT NULL,
     fecha_ingreso DATETIME NOT NULL,
     fecha_entrega DATETIME NULL,
-    status INT NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_cliente),
-    FOREIGN KEY (status) REFERENCES status(id_status)
+    statusID INT NOT NULL,
+    FOREIGN KEY (usuarioID) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (statusID) REFERENCES status(id_status)
 );
